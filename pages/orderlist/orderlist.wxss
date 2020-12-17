@@ -1,0 +1,37 @@
+/* pages/orderlist/orderlist.wxss */
+@import "/weui.wxss";
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin: 10px;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.usermotto {
+  margin-top: 10px;
+}
+
+.userinfo-nickname {
+  color: var(--weui-FG-1);
+  /* line-height: 128rpx; */
+  margin-top: 100rpx;
+  margin-left: 10px;
+}
+
+.weui-form-preview__ft .del {
+  background-color: red;
+  color: white;
+}
+
+.weui-form-preview__ft .del:active {
+  background-color: white;
+  color: red;
+}

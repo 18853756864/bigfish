@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/orderlist/orderlist"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "大鱼",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [{
+        "pagePath": "pages/main/main",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/orderlist/orderlist",
+        "text": "订单"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "entryPagePath": "pages/main/main"
+}

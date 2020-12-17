@@ -1,0 +1,69 @@
+<!--pages/orderlist/orderlist.wxml-->
+<!-- <view>
+  <view wx:for="{{orderlist}}"> 
+    <view>
+      <text>{{item.content}}</text>
+    </view>
+  </view>
+</view> -->
+
+<view class="userinfo">
+  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </block>
+</view>
+<view class="usermotto">
+  <!-- <text class="user-motto">{{motto}}</text> -->
+  <view class="weui-cells__title" style="font-size:17px">订单列表</view>
+  <view class="weui-cells">
+    <block wx:for="{{orderlist}}">
+      <view class="weui-cell  weui-cell_access">
+        <view class="weui-cell__bd">
+          <p>{{item.date}} 【{{item.type}}】</p>
+        </view>
+        <view class="weui-cell__ft" bindtouchend="orderDetail" data-id="{{item.id}}" data-index='{{index}}'>
+          {{item.status}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<modal title="订单详情" hidden="{{modalStatus}}" confirm-text="关闭" no-cancel='true' bindconfirm="hiddemodal">
+  <block wx:if="{{orderlist}}!=null">
+    <form>
+      <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label" style="color:black">{{orderlist[index].type}}</label>
+          </view>
+        </view>
+        <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">提交日期</label>
+            <span class="weui-form-preview__value">{{orderlist[index].date}}</span>
+          </view>
+        </view>
+        <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">订单状态</label>
+            <span class="weui-form-preview__value">{{orderlist[index].status}}</span>
+          </view>
+        </view>
+        <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <textarea class="weui-textarea" auto-focus value="{{orderlist[index].content}}"></textarea>
+            </view>
+          </view>
+        </view>
+        <block wx:if="{{orderlist[index].status!='订单取消'}}">
+          <view class="weui-form-preview__ft">
+            <text class="weui-form-preview__btn weui-form-preview__btn_primary del" bindtouchend="delOrder">取消订单</text>
+          </view>
+        </block>
+      </view>
+    </form>
+  </block>
+</modal>
