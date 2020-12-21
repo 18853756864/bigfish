@@ -111,7 +111,7 @@ Page({
   // 获取订单列表
   getOrderList: function () {
     var _this = this;
-    var url = app.globalData.webapi + '/api/order/getlist?customerid=10042';
+    var url = app.globalData.webapi + '/api/order/getlist?customerid=' + app.globalData.uniqueid;
     console.log(url);
     wx.request({
       url: url,

@@ -25,20 +25,20 @@
         scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <!--选项卡-->
         <view class='title'>
-          <view class="{{0 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-idx='0'>
-            <text>网站应用</text>
+          <view class="{{0 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-index='0'>
+            <text>{{type[0]}}</text>
             <hr class="line-style" />
           </view>
-          <view class="{{1 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-idx='1'>
-            <text>桌面APP</text>
+          <view class="{{1 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-index='1'>
+            <text>{{type[1]}}</text>
             <hr class="line-style" />
           </view>
-          <view class="{{2 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-idx='2'>
-            <text>安卓APP</text>
+          <view class="{{2 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-index='2'>
+            <text>{{type[2]}}</text>
             <hr class="line-style" />
           </view>
-          <view class="{{3 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-idx='3'>
-            <text>微信平台</text>
+          <view class="{{3 == currentIndex ? 'title-sel-selected' : 'title-sel'}}" bindtap='titleClick' data-index='3'>
+            <text>{{type[3]}}</text>
             <hr class="line-style" />
           </view>
         </view>
@@ -49,21 +49,21 @@
               &emsp;&emsp;网站应用是一种以网页语言撰写的应用程序，需要透过浏览器来执行。例如：公司官网、OA系统等。\n
             </text>
             <image src="/images/web_app.jpg"></image>
-            <view class="new-order-btn" bindtouchend="neworder">做一个{{type}}</view>
+            <view class="new-order-btn" bindtouchend="neworder">做一个{{type[currentIndex]}}</view>
           </swiper-item>
           <swiper-item class='swiper'>
             <text decode="true">
               &emsp;&emsp;桌面应用程序是需要在本地计算机上安装应用程序。在Windows系统中常见的exe执行程序，例如：IE浏览器、QQ电脑版等。\n
             </text>
             <image src="/images/desktop_app.jpg"></image>
-            <view class="new-order-btn" bindtouchend="neworder">做一个{{type}}</view>
+            <view class="new-order-btn" bindtouchend="neworder">做一个{{type[currentIndex]}}</view>
           </swiper-item>
           <swiper-item class='swiper'>
             <text decode="true">
               &emsp;&emsp;安卓APP是指安装在安卓系统中的的移动端应用程序。目前安卓APP应用广泛，使用便捷。安卓手机桌面展示的应用程序都可以被称为安卓APP。\n
             </text>
             <image src="/images/android_app.jpg"></image>
-            <view class="new-order-btn" bindtouchend="neworder">做一个{{type}}</view>
+            <view class="new-order-btn" bindtouchend="neworder">做一个{{type[currentIndex]}}</view>
           </swiper-item>
           <swiper-item class='swiper'>
             <text decode="true">
@@ -78,12 +78,12 @@
   </view>
 
   <!-- 模态框 -->
-  <modal title="新建订单【{{type}}】" hidden="{{modalStatus}}" cancel-text="取消" bindcancel="hiddemodal" confirm-text="提交"
-    bindconfirm="submitorder">
+  <modal title="新建订单【{{type[currentIndex]}}】" hidden="{{modalStatus}}" cancel-visible='false' cancel-text="取消"
+    bindcancel="hiddemodal" confirm-text="提交" bindconfirm="submitorder">
     <form>
       <view class="type">
-        <view class="block" bindtouchend="block_click" data-type="网站应用">
-          <view class="{{type=='网站应用'?'active':''}}">
+        <view class="block" bindtouchend="block_click" data-index="0">
+          <view class="{{currentIndex==0?'active':''}}">
             <view>
               <image src="/images/web.png"></image>
             </view>
@@ -92,8 +92,8 @@
             </view>
           </view>
         </view>
-        <view class="block" bindtouchend="block_click" data-type="桌面APP">
-          <view class="{{type=='桌面APP'?'active':''}}">
+        <view class="block" bindtouchend="block_click" data-index="1">
+          <view class="{{currentIndex==1?'active':''}}">
             <view>
               <image src="/images/windows.png"></image>
             </view>
@@ -102,8 +102,8 @@
             </view>
           </view>
         </view>
-        <view class="block" bindtouchend="block_click" data-type="安卓APP">
-          <view class="{{type=='安卓APP'?'active':''}}">
+        <view class="block" bindtouchend="block_click" data-index="2">
+          <view class="{{currentIndex==2?'active':''}}">
             <view>
               <image src="/images/app.png"></image>
             </view>
@@ -112,8 +112,8 @@
             </view>
           </view>
         </view>
-        <view class="block" bindtouchend="block_click" data-type="微信平台">
-          <view class="{{type=='微信平台'?'active':''}}">
+        <view class="block" bindtouchend="block_click" data-index="3">
+          <view class="{{currentIndex==3?'active':''}}">
             <view>
               <image src="/images/小程序.png"></image>
             </view>
@@ -127,7 +127,7 @@
       <view class="page-section">
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell weui-cell_input">
-            <textarea class="weui-textarea" auto-focus placeholder="需求简述"></textarea>
+            <textarea model:value="{{content}}" class="weui-textarea" auto-focus placeholder="需求简述"></textarea>
           </view>
         </view>
       </view>
@@ -137,13 +137,13 @@
           <view class="weui-cell weui-cell_active weui-cell_disabled">
             <view class="weui-cell__hd"><label class="weui-label">姓名</label></view>
             <view class="weui-cell__bd">
-              <input class="weui-input" placeholder="请输入姓名" value="" disabled="" />
+              <input model:value="{{name}}" class="weui-input" placeholder="请输入姓名" disabled="" />
             </view>
           </view>
           <view class="weui-cell weui-cell_active weui-cell_disabled">
             <view class="weui-cell__hd"><label class="weui-label">联系电话</label></view>
             <view class="weui-cell__bd">
-              <input class="weui-input" placeholder="请输入联系电话" value="" disabled="" />
+              <input model:value="{{mobile}}" class="weui-input" type="number" placeholder="请输入联系电话" disabled="" />
             </view>
           </view>
           <view class="weui-cell weui-cell_active weui-cell_access">
@@ -155,13 +155,12 @@
               </picker>
             </view>
             <view class="weui-cell__bd">
-              <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入{{array[index]}}数" value="" />
+              <input model:value="{{timelimit}}" class="weui-input" type="number" pattern="[0-9]*"
+                placeholder="请输入{{array[index]}}数" />
             </view>
           </view>
         </view>
       </view>
-
-
     </form>
   </modal>
 
